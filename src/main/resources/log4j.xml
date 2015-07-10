@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss.SSS\} %-5p] [%t] (%c{1}:%L) %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="A1" class="org.apache.log4j.RollingFileAppender">
+		<param name="file" value="/home/work/jstorm_cluster/jstorm-0.9.6.3/biglog_logs/storm.log" />
+		<param name="Append" value="true" />
+		<param name="encoding" value="utf-8" />
+		<param name="maxBackupIndex" value="10"/>
+		<param name="maxFileSize" value="104857600"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss.SSS\} %-5p] (%c{1}:%L) %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ACCESS" class="org.apache.log4j.RollingFileAppender">
+		<param name="file" value="/home/work/jstorm_cluster/jstorm-0.9.6.3/biglog_logs/access.log" />
+		<param name="Append" value="true" />
+		<param name="encoding" value="utf-8" />
+		<param name="maxBackupIndex" value="10"/>
+		<param name="maxFileSize" value="4857600"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss.SSS\} %-5p] (%c{1}:%L) %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="METRICS" class="org.apache.log4j.RollingFileAppender">
+		<param name="file" value="/home/work/jstorm_cluster/jstorm-0.9.6.3/biglog_logs/metrics.log" />
+		<param name="Append" value="true" />
+		<param name="encoding" value="utf-8" />
+		<param name="maxBackupIndex" value="10"/>
+		<param name="maxFileSize" value="2048"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss.SSS\} %-5p %-8r] %m%n" />
+		</layout>
+	</appender>
+
+
+	<appender name="default_appender" class="org.apache.log4j.RollingFileAppender">
+		<param name="file" value="/home/work/jstorm_cluster/jstorm-0.9.6.3/biglog_logs/biglog_default.log" />
+		<param name="Append" value="true" />
+		<param name="encoding" value="utf-8" />
+		<param name="maxBackupIndex" value="9"/>
+		<param name="maxFileSize" value="804857600"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss.SSS\} %-5p] [%t] (%c{1}:%L) -[%X{traceId}] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="error_appender" class="org.apache.log4j.RollingFileAppender">
+		<param name="file" value="/home/work/jstorm_cluster/jstorm-0.9.6.3/biglog_logs/biglog_error.log" />
+		<param name="Append" value="true" />
+		<param name="encoding" value="utf-8" />
+		<param name="maxBackupIndex" value="9"/>
+		<param name="maxFileSize" value="54857600"/>
+		<param name="threshold" value="ERROR" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss.SSS\} %-5p] (%c{1}:%L) %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="queuelog_appender" class="org.apache.log4j.RollingFileAppender">
+		<param name="file" value="/home/work/jstorm_cluster/jstorm-0.9.6.3/biglog_logs/calculate_queue.log" />
+		<param name="Append" value="true" />
+		<param name="encoding" value="utf-8" />
+		<param name="maxBackupIndex" value="3"/>
+		<param name="maxFileSize" value="4857600"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss.SSS\} %-5p] (%c{1}:%L) %m%n" />
+		</layout>
+	</appender>
+	<logger name="queueLog" additivity="false">
+		<level value="info"/>
+		<appender-ref ref="queuelog_appender"/>
+	</logger>
+
+	<logger name="backtype.storm.security.auth.authorizer" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="ACCESS" />
+	</logger>
+
+	<logger name="backtype.storm.metric.LoggingMetricsConsumer" additivity="false" >
+		<level value="INFO"/>
+		<appender-ref ref="METRICS"/>
+	</logger>
+	<logger name="default_logger" additivity="false">
+		<level value="info"/>
+		<appender-ref ref="default_appender"/>
+	</logger>
+
+	<root>
+		<priority value="INFO" />
+		<appender-ref ref="A1"/>
+		<appender-ref ref="error_appender" />
+	</root>
+</log4j:configuration>

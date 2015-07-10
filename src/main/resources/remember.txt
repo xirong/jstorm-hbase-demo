@@ -1,0 +1,21 @@
+# 上线注意事项
+1. config/hbasetopo/kfk_consumer.properties 中的 topic_name是不一样的，
+一中心机器= onlineweb_errorlog_idc1，二中心机器=onlineweb_errorlog_idc2
+
+2. 线上config.properties,stormConfig.properties,log4j.xml 均放在
+/home/work/jstorm_cluster/jstorm-0.9.6.3/biglog_conf 里面
+
+
+
+如何打包：
+mvn clean package  -Dmaven.test.skip=true
+
+如何部署：
+打包出来后，只有本项目的class文件，依赖的jar文件也需要拷贝出来，并且这些文件必须放到jstorm集群的每一台机器的
+/home/work/jstorm_cluster/jstorm-0.9.6.3/lib ，jstorm执行topology需要这些jar文件
+
+
+如何部署提交：前提 config.properties\log4j.xml\stormConfig.properties 拷贝到每台机器的 /home/work/jstorm_cluster/jstorm-0.9.6.3/biglog_conf 目录下
+在nimbus节点执行
+cd /home/work/jstorm_cluster/jstorm-0.9.6.3/
+jstorm jar log_anaysis_strom-1.0.0.jar com.elong.online.web.BootStrap biglog_conf/config.properties

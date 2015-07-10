@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.xirong.demo</groupId>
+    <artifactId>jstorm-hbase-demo</artifactId>
+    <version>0.1</version>
+    
+<repositories>
+    <repository>
+        <id>public</id>
+        <name>public</name>
+        <url>http://mvn.elong.cn:8081/nexus/content/groups/public</url>
+    </repository>
+</repositories>
+
+<pluginRepositories>
+    <pluginRepository>
+        <id>public</id>
+        <name>public</name>
+        <url>http://mvn.elong.cn:8081/nexus/content/groups/public/</url>
+    </pluginRepository>
+</pluginRepositories>
+
+
+
+<!-- 设置属性 -->
+<properties>
+    <profiles.src>src/main/java</profiles.src>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <resources.dir>src/main/resources</resources.dir>
+    <profiles.dir>src/main/profiles</profiles.dir>
+    <java-version>1.7</java-version>
+
+    <org.springframework.vresion>3.2.3.RELEASE</org.springframework.vresion>
+    <org.slf4j.vresion>1.7.5</org.slf4j.vresion>
+    <prod.dir>${profiles.dir}/prod</prod.dir>
+    <test.skip>true</test.skip>
+    <jstorm.version>0.9.6.2</jstorm.version>
+    <!--<storm.version>storm-0.9.2-incubating</storm.version>-->
+    <!--<org.aspectj-version>1.7.5</org.aspectj-version>-->
+
+    <!--&lt;!&ndash; kafka &ndash;&gt;-->
+    <!--<kafka>0.7.2</kafka>-->
+    <!--<scala>2.8.0</scala>-->
+    <!--<metrics>2.2.0</metrics>-->
+</properties>
+
+
+<dependencies>
+    <!-- spring 配置开始 -->
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-beans</artifactId>
+        <version>${org.springframework.vresion}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>${org.springframework.vresion}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context-support</artifactId>
+        <version>${org.springframework.vresion}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-core</artifactId>
+        <version>${org.springframework.vresion}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-expression</artifactId>
+        <version>${org.springframework.vresion}</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-oxm</artifactId>
+        <version>${org.springframework.vresion}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-aop</artifactId>
+        <version>${org.springframework.vresion}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jdbc</artifactId>
+        <version>${org.springframework.vresion}</version>
+    </dependency>
+    <!-- spring 配置结束 -->
+
+    <!--log 相关配置开始-->
+    <dependency>
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+        <version>1.2.17</version>
+    </dependency>
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${org.slf4j.vresion}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-log4j12</artifactId>
+        <version>${org.slf4j.vresion}</version>
+    </dependency>
+    <!--log相关配置结束-->
+
+    <!-- aop -->
+    <dependency>
+        <groupId>aopalliance</groupId>
+        <artifactId>aopalliance</artifactId>
+        <version>1.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.aspectj</groupId>
+        <artifactId>aspectjweaver</artifactId>
+        <version>1.7.2</version>
+    </dependency>
+    <dependency>
+        <groupId>cglib</groupId>
+        <artifactId>cglib</artifactId>
+        <version>2.2.2</version>
+    </dependency>
+    <dependency>
+        <groupId>javax.transaction</groupId>
+        <artifactId>transaction-api</artifactId>
+        <version>1.1</version>
+    </dependency>
+
+    <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>fastjson</artifactId>
+        <version>1.1.39</version>
+    </dependency>
+
+    <!-- kafka -->
+    <dependency>
+        <groupId>org.apache.kafka</groupId>
+        <artifactId>kafka_2.9.2</artifactId>
+        <version>0.8.1.1</version>
+    </dependency>
+    <!-- zookeeper -->
+    <dependency>
+        <groupId>com.github.sgroschupf</groupId>
+        <artifactId>zkclient</artifactId>
+        <version>0.1</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.zookeeper</groupId>
+        <artifactId>zookeeper</artifactId>
+        <version>3.4.6</version>
+    </dependency>
+
+    <!-- phoenix -->
+    <dependency>
+        <groupId>org.apache.phoenix</groupId>
+        <artifactId>phoenix-client</artifactId>
+        <version>4.2.1</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.hadoop</groupId>
+        <artifactId>hadoop-common</artifactId>
+        <version>2.3.0</version>
+        <exclusions>
+            <exclusion>
+                <artifactId>zookeeper</artifactId>
+                <groupId>org.apache.zookeeper</groupId>
+            </exclusion>
+            <exclusion>
+                <artifactId>slf4j-log4j12</artifactId>
+                <groupId>org.slf4j</groupId>
+            </exclusion>
+            <exclusion>
+                <artifactId>slf4j-api</artifactId>
+                <groupId>org.slf4j</groupId>
+            </exclusion>
+            <exclusion>
+                <artifactId>jdk.tools</artifactId>
+                <groupId>jdk.tools</groupId>
+            </exclusion>
+            <exclusion>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>jetty</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>
+
+    <dependency>
+        <groupId>commons-dbcp</groupId>
+        <artifactId>commons-dbcp</artifactId>
+        <version>1.4</version>
+    </dependency>
+
+    <!--<dependency>-->
+    <!--<groupId>org.apache.storm</groupId>-->
+    <!--<artifactId>storm-core</artifactId>-->
+    <!--<version>0.9.3</version>-->
+    <!--</dependency>-->
+
+    <dependency>
+        <groupId>com.alibaba.jstorm</groupId>
+        <artifactId>jstorm-client-extension</artifactId>
+        <version>${jstorm.version}</version>
+        <scope>provided</scope>
+    </dependency>
+    <dependency>
+        <groupId>com.alibaba.jstorm</groupId>
+        <artifactId>jstorm-client</artifactId>
+        <version>${jstorm.version}</version>
+        <scope>provided</scope>
+    </dependency>
+    <dependency>
+        <groupId>com.alibaba.jstorm</groupId>
+        <artifactId>jstorm-server</artifactId>
+        <version>${jstorm.version}</version>
+        <scope>provided</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.yaml</groupId>
+        <artifactId>snakeyaml</artifactId>
+        <version>1.9</version>
+    </dependency>
+
+    <dependency>
+        <groupId>com.google.code.findbugs</groupId>
+        <artifactId>jsr305</artifactId>
+        <version>1.3.8</version>
+    </dependency>
+
+</dependencies>
+
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.1</version>
+            <configuration>
+                <source>1.7</source>
+                <target>1.7</target>
+                <encoding>UTF-8</encoding>
+            </configuration>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <version>2.8</version>
+            <executions>
+                <execution>
+                    <id>copy-dependencies</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>copy-dependencies</goal>
+                    </goals>
+                    <configuration>
+                        <outputDirectory>target/lib</outputDirectory>
+                        <overWriteReleases>false</overWriteReleases>
+                        <overWriteSnapshots>true</overWriteSnapshots>
+                        <overWriteIfNewer>true</overWriteIfNewer>
+                        <excludeArtifactIds>
+                            storm-core,zookeeper,clojure,clj-time,joda-time,core.incubator,tools.macro,clout,ring-core,hiccup,ring-core,clj-stacktrace,ring-servlet,servlet-api,jetty,jetty-util,tools.loggin,math.numeric-tower,tools.cli,commons-io,commons-exec,commons-lang,curator-framework,curator-client,guava,json-simple,slf4j-api,carbonite,kryo,reflectasm,asm,minlog,objenesis,chill-java,snakeyaml,httpclient,httpcore,commons-logging,commons-codec,disruptor,jgrapht-core,logback-classic,logback-core,log4j-over-slf4j,slf4j-api,netty
+                        </excludeArtifactIds>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
+
+<profiles>
+
+</profiles>
+</project>
