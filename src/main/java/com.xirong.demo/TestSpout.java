@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-class TestSpout extends BaseRichSpout {
+public class TestSpout extends BaseRichSpout {
     private static final Logger LOGGER = LoggerFactory.getLogger(TestSpout.class);
     static AtomicInteger sAtomicInteger = new AtomicInteger(0);
     static AtomicInteger pendNum = new AtomicInteger(0);
@@ -47,11 +47,19 @@ class TestSpout extends BaseRichSpout {
 
     }
 
+    /**
+     * 启用 ack 机制，详情参考：https://github.com/alibaba/jstorm/wiki/Ack-%E6%9C%BA%E5%88%B6
+     * @param msgId
+     */
     @Override
     public void ack(Object msgId) {
         super.ack(msgId);
     }
 
+    /**
+     * 消息处理失败后需要自己处理
+     * @param msgId
+     */
     @Override
     public void fail(Object msgId) {
         super.fail(msgId);

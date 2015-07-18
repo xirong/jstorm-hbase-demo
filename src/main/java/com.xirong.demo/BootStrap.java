@@ -44,7 +44,7 @@ public class BootStrap {
         }
 
         public static ApplicationContext instance = new ClassPathXmlApplicationContext(
-                "/config/elong-root-context.xml");
+                "/config/demo-beans-context.xml");
     }
 
     private static CountDownLatch downLatch = new CountDownLatch(1);

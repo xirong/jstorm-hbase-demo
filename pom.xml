@@ -7,23 +7,6 @@
     <groupId>org.xirong.demo</groupId>
     <artifactId>jstorm-hbase-demo</artifactId>
     <version>0.1</version>
-    
-<repositories>
-    <repository>
-        <id>public</id>
-        <name>public</name>
-        <url>http://mvn.elong.cn:8081/nexus/content/groups/public</url>
-    </repository>
-</repositories>
-
-<pluginRepositories>
-    <pluginRepository>
-        <id>public</id>
-        <name>public</name>
-        <url>http://mvn.elong.cn:8081/nexus/content/groups/public/</url>
-    </pluginRepository>
-</pluginRepositories>
-
 
 
 <!-- 设置属性 -->
